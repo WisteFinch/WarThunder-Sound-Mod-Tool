@@ -62,7 +62,7 @@ MainWidget::MainWidget(QWidget *parent)
                     QPushButton *b = new QPushButton();
                     b->setText(m->m_name);
                     this->m_layout_models->addWidget(b);
-                    connect(b, &QPushButton::clicked, this, [=]{m->show();});
+                    connect(b, &QPushButton::clicked, this, [=]{m->show();m->checkFiles();});
                }
             }
         }
@@ -106,6 +106,7 @@ void MainWidget::import(){
 void MainWidget::checkFiles()
 {
     for(int i = 0; i < this->m_models.size(); i++){
-        this->m_models.at(i)->checkFiles();
+        if(this->m_models.at(i)->isVisible())
+            this->m_models.at(i)->checkFiles();
     }
 }
