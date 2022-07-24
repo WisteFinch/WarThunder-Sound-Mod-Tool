@@ -2,10 +2,12 @@
 #include "ui_build.h"
 
 Build::Build(QWidget *parent, QMap<QString, QString> *filesList, QMap<QString, QString> *langsList, QList<QString> *typesList, QList<Item*> *itemList, QString title) :
-    QWidget(parent),
+    QDialog(parent),
     ui(new Ui::Build)
 {
     ui->setupUi(this);
+
+    setAttribute(Qt::WA_DeleteOnClose);
 
     this->m_files_list = filesList;
     this->m_langs = langsList;
@@ -94,10 +96,22 @@ Build::Build(QWidget *parent, QMap<QString, QString> *filesList, QMap<QString, Q
 Build::~Build()
 {
     delete ui;
-    this->deleteLater();
+    m_list = nullptr;
+    m_files_list = nullptr;
+    m_langs = nullptr;
+    m_types = nullptr;
+    delete this->m_layout_main;
 }
 
 void Build::start(){
+
+    if(this->m_c_fill_empty->isChecked()){
+        QFile f("./mute.wav");
+        if(!f.exists()){
+            QMessageBox::warning(this, tr("System File Missing"), tr("Missing system file \"mute.wav\", please reinstall the application to solve the problem"));
+            return;
+        }
+    }
 
     this->m_start->setDisabled(true);
     this->m_bar->setMinimum(0);

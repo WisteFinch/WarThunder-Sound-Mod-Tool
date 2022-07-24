@@ -21,18 +21,24 @@ class Model : public QWidget
     Q_OBJECT
 
 public:
-    explicit Model(QWidget *parent = nullptr, QJsonObject obj = QJsonObject(), QMap<QString, QString> *filesList = new QMap<QString, QString>);
+    explicit Model(QWidget *parent = nullptr, QJsonObject obj = QJsonObject(), QMap<QString, QString> *filesList = new QMap<QString, QString>, int index = 0);
     ~Model();
 
     QJsonObject m_obj;
+    int index;
 
     QList<Item*> *m_list;
+    QMap<QString, int> m_list_mapping;
     QString m_name;
     QMap<QString, QString> *m_files_list;
     QMap<QString, QString> *m_langs;
     QList<QString> *m_types;
 
-    void checkFiles();
+    void checkFiles(int type);
+    void checkFiles(int type, QStringList l);
+
+signals:
+    void widgetClose(int index);
 
 private:
     Ui::Model *ui;

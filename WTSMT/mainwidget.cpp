@@ -31,7 +31,6 @@ MainWidget::MainWidget(QWidget *parent)
 
     this->m_files_list = new QMap<QString, QString>;
 
-    QStringList models;
     QString path = "models";
     QDir dir(path);
     if(dir.exists()){
@@ -57,12 +56,13 @@ MainWidget::MainWidget(QWidget *parent)
                 QJsonParseError parseJsonErr;
                 document = QJsonDocument::fromJson(value.toUtf8(),&parseJsonErr);
                 if(parseJsonErr.error == QJsonParseError::NoError){
-                    Model *m = new Model(nullptr, document.object(), this->m_files_list);
-                    this->m_models.append(m);
+                    Model *m = nullptr;
+                    this->m_models.append(QPair<Model*,QJsonObject>(m,document.object()));
                     QPushButton *b = new QPushButton();
-                    b->setText(m->m_name);
+                    b->setText(document.object().value("name").toString());
                     this->m_layout_models->addWidget(b);
-                    connect(b, &QPushButton::clicked, this, [=]{m->show();m->checkFiles();});
+                    int index = this->m_models.size()-1;
+                    connect(b, &QPushButton::clicked, this, [=]{showModel(index);});
                }
             }
         }
@@ -80,8 +80,8 @@ MainWidget::MainWidget(QWidget *parent)
     connect(this->m_url, &QPushButton::clicked, this, [=]{QDesktopServices::openUrl(QUrl("https://github.com/WisteFinch/WarThunder-Sound-Mod-Tool", QUrl::TolerantMode));});
 
     connect(this->m_import, &QPushButton::clicked, this, [=]{import();});
-    connect(this->m_delete, &QPushButton::clicked, this, [=]{if(this->m_files->currentItem()!= nullptr){this->m_files_list->remove(this->m_files->currentItem()->text()); delete this->m_files->currentItem();checkFiles();}});
-    connect(this->m_clear, &QPushButton::clicked, this, [=]{this->m_files->clear();this->m_files_list->clear();checkFiles();});
+    connect(this->m_delete, &QPushButton::clicked, this, [=]{if(this->m_files->currentItem()!= nullptr){QStringList l;l.append(this->m_files->currentItem()->text());this->m_files_list->remove(this->m_files->currentItem()->text()); delete this->m_files->currentItem();checkFiles(2, l);}});
+    connect(this->m_clear, &QPushButton::clicked, this, [=]{this->m_files->clear();this->m_files_list->clear();checkFiles(-1);});
 
 }
 
@@ -92,21 +92,47 @@ MainWidget::~MainWidget()
 
 void MainWidget::import(){
     QStringList list = QFileDialog::getOpenFileNames(this, tr("Select sound files"), ".", "Sound(*.wav)");
+    QStringList l;
     for(int i = 0; i < list.size();i++)
     {
         QString name = QFileInfo(list.at(i)).fileName();
         if(!this->m_files_list->contains(name)){
             this->m_files_list->insert(name, list.at(i));
             this->m_files->addItem(name);
+            l.append(name);
         }
     }
-    checkFiles();
+    checkFiles(1, l);
 }
 
-void MainWidget::checkFiles()
+void MainWidget::checkFiles(int type)
+{
+    QStringList l;
+    checkFiles(type, l);
+}
+
+void MainWidget::checkFiles(int type, QStringList l)
 {
     for(int i = 0; i < this->m_models.size(); i++){
-        if(this->m_models.at(i)->isVisible())
-            this->m_models.at(i)->checkFiles();
+        if(this->m_models.at(i).first != nullptr)
+            this->m_models.at(i).first->checkFiles(type, l);
     }
+}
+
+void MainWidget::showModel(int index){
+    Model *m = this->m_models.at(index).first;
+    if(m == nullptr){
+        m = new Model(nullptr, this->m_models.at(index).second, this->m_files_list, index);
+        connect(m, &Model::widgetClose, this, &MainWidget::deleteModel);
+    }
+    this->m_models[index].first = m;
+    m->checkFiles(0);
+}
+
+void MainWidget::deleteModel(int index){
+    this->m_models[index].first = nullptr;
+}
+
+void MainWidget::closeEvent(QCloseEvent *event){
+    qApp->quit();
 }

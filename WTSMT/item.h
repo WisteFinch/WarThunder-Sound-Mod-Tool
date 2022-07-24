@@ -19,11 +19,10 @@ class Item : public QScrollArea
     Q_OBJECT
 
 public:
-    explicit Item(QWidget *parent = nullptr, QJsonObject obj = QJsonObject(), QMap<QString, QString> *filesList = new QMap<QString, QString>, QMap<QString, QString> *langsList = new QMap<QString, QString>, QList<QString> *typesList = new QList<QString>);
+    explicit Item(QWidget *parent = nullptr, QJsonObject obj = QJsonObject(), QMap<QString, QString> *langsList = new QMap<QString, QString>, QList<QString> *typesList = new QList<QString>);
     ~Item();
 
     QJsonObject m_obj;
-    QMap<QString, QString> *m_files_list;
     QMap<QString, QMap<QString,QList<QString>>> *m_mapping;
     QMap<QString, QString> *m_langs;
     QList<QString> *m_types;
@@ -31,7 +30,6 @@ public:
     QString m_cap;
     QString file_name;
 
-    void checkFiles();
 private:
     Ui::Item *ui;
 

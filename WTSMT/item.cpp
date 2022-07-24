@@ -1,14 +1,13 @@
 #include "item.h"
 #include "ui_item.h"
 
-Item::Item(QWidget *parent, QJsonObject obj, QMap<QString, QString> *filesList, QMap<QString, QString> *langsList, QList<QString> *typesList) :
+Item::Item(QWidget *parent, QJsonObject obj, QMap<QString, QString> *langsList, QList<QString> *typesList) :
     QScrollArea(parent),
     ui(new Ui::Item)
 {
     ui->setupUi(this);
 
     this->m_obj = obj;
-    this->m_files_list = filesList;
     this->m_mapping = new QMap<QString, QMap<QString, QList<QString>>>;
     this->m_types = typesList;
     this->m_langs = langsList;
@@ -60,9 +59,6 @@ Item::Item(QWidget *parent, QJsonObject obj, QMap<QString, QString> *filesList, 
     this->m_file_edit->setDisabled(true);
 
     this->m_cap = obj.value("name").toString().isEmpty()? obj.value("id").toString():obj.value("name").toString();
-
-    if(this->m_files_list->contains(this->file_name))
-        this->is_reday = true;
 
     QJsonArray types = this->m_obj.value("mapping").toArray();
     bool hasTypes = false;
@@ -145,9 +141,8 @@ Item::Item(QWidget *parent, QJsonObject obj, QMap<QString, QString> *filesList, 
 Item::~Item()
 {
     delete ui;
-}
-
-void Item::checkFiles()
-{
-    this->is_reday = this->m_files_list->contains(this->file_name);
+    m_langs = nullptr;
+    m_types = nullptr;
+    delete this->m_widget;
+    delete m_mapping;
 }

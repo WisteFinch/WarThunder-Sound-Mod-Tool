@@ -15,13 +15,14 @@
 #include <QComboBox>
 #include "public.h"
 #include "QFileDialog"
-
+#include <QDialog>
+#include <QMessageBox>
 
 namespace Ui {
 class Build;
 }
 
-class Build : public QWidget
+class Build : public QDialog
 {
     Q_OBJECT
 

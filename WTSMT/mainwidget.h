@@ -15,6 +15,8 @@
 #include <QFileDialog>
 #include <QDesktopServices>
 #include <QUrl>
+#include <QPair>
+#include <QCloseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWidget; }
@@ -28,11 +30,17 @@ public:
     MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
 
-    QList<Model*> m_models;
+    QList<QPair<Model*,QJsonObject>> m_models;
     QMap<QString, QString> *m_files_list;
 
     void import();
-    void checkFiles();
+    void checkFiles(int type);
+    void checkFiles(int type, QStringList l);
+    void closeEvent(QCloseEvent *event);
+public slots:
+    void showModel(int index);
+    void deleteModel(int index);
+
 private:
     Ui::MainWidget *ui;
     QHBoxLayout *m_layout_main;
