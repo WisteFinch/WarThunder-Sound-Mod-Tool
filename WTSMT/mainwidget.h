@@ -11,7 +11,6 @@
 #include <QPushButton>
 #include <QDir>
 #include <QDirIterator>
-#include "public.h"
 #include <QFileDialog>
 #include <QDesktopServices>
 #include <QUrl>
@@ -30,16 +29,16 @@ public:
     MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
 
-    QList<QPair<Model*,QJsonObject>> m_models;
-    QMap<QString, QString> *m_files_list;
+    QList<QPair<Model*,QJsonObject>> m_models;  ///< 模型列表
+    QMap<QString, QString> *m_files_list;       ///< 音频文件映射
 
-    void import();
-    void checkFiles(int type);
-    void checkFiles(int type, QStringList l);
-    void closeEvent(QCloseEvent *event);
-public slots:
-    void showModel(int index);
-    void deleteModel(int index);
+    void import();                              ///< 导入音频文件
+    void checkFiles(int type);                  ///< 检查文件
+    void checkFiles(int type, QStringList l);   ///< 检查多个文件
+    void closeEvent(QCloseEvent *event);        ///< 关闭信号
+
+    void showModel(int index);                  ///< 显示模型
+    void closeModel(int index);                ///< 关闭模型
 
 private:
     Ui::MainWidget *ui;
@@ -51,6 +50,7 @@ private:
     QPushButton *m_import;
     QPushButton *m_delete;
     QPushButton *m_clear;
-    QPushButton *m_url;
+    QPushButton *m_github;
+    QPushButton *m_usage;
 };
 #endif // MAINWIDGET_H

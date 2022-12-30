@@ -137,37 +137,58 @@
         <translation>主窗体</translation>
     </message>
     <message>
-        <location filename="mainwidget.cpp" line="10"/>
+        <location filename="mainwidget.cpp" line="11"/>
         <source>WarThunder Sound Mod Builder</source>
         <translation>战争雷霆音频包工具</translation>
     </message>
     <message>
-        <location filename="mainwidget.cpp" line="17"/>
-        <source>import</source>
+        <location filename="mainwidget.cpp" line="18"/>
+        <source>Import</source>
         <translation>导入</translation>
     </message>
     <message>
-        <location filename="mainwidget.cpp" line="19"/>
-        <source>delete</source>
+        <location filename="mainwidget.cpp" line="20"/>
+        <source>Delete</source>
         <translation>删除</translation>
     </message>
     <message>
-        <location filename="mainwidget.cpp" line="21"/>
-        <source>clear</source>
+        <location filename="mainwidget.cpp" line="22"/>
+        <source>Clear</source>
         <translation>清空</translation>
     </message>
     <message>
-        <location filename="mainwidget.cpp" line="71"/>
+        <location filename="mainwidget.cpp" line="85"/>
+        <source>Update &amp;&amp; GitHub</source>
+        <translation>更新 &amp;&amp; Github</translation>
+    </message>
+    <message>
+        <location filename="mainwidget.cpp" line="88"/>
+        <source>Usage</source>
+        <translation>使用方法</translation>
+    </message>
+    <message>
+        <source>import</source>
+        <translation type="vanished">导入</translation>
+    </message>
+    <message>
+        <source>delete</source>
+        <translation type="vanished">删除</translation>
+    </message>
+    <message>
+        <source>clear</source>
+        <translation type="vanished">清空</translation>
+    </message>
+    <message>
+        <location filename="mainwidget.cpp" line="77"/>
         <source>No model files</source>
         <translation>无模型文件</translation>
     </message>
     <message>
-        <location filename="mainwidget.cpp" line="78"/>
         <source>Check for Update</source>
-        <translation>检查更新</translation>
+        <translation type="vanished">检查更新</translation>
     </message>
     <message>
-        <location filename="mainwidget.cpp" line="94"/>
+        <location filename="mainwidget.cpp" line="107"/>
         <source>Select sound files</source>
         <translation>选择音频文件</translation>
     </message>
@@ -180,19 +201,30 @@
         <translation>窗体</translation>
     </message>
     <message>
-        <location filename="model.cpp" line="28"/>
+        <location filename="model.cpp" line="33"/>
         <source>Build</source>
         <translation>构建</translation>
     </message>
     <message>
-        <location filename="model.cpp" line="40"/>
-        <location filename="model.cpp" line="100"/>
-        <location filename="model.cpp" line="144"/>
+        <location filename="model.cpp" line="45"/>
+        <location filename="model.cpp" line="52"/>
+        <location filename="model.cpp" line="59"/>
+        <location filename="model.cpp" line="81"/>
+        <location filename="model.cpp" line="84"/>
+        <location filename="model.cpp" line="123"/>
+        <location filename="model.cpp" line="174"/>
         <source>Model:</source>
         <translation>模型：</translation>
     </message>
     <message>
-        <location filename="model.cpp" line="100"/>
+        <location filename="model.cpp" line="52"/>
+        <location filename="model.cpp" line="59"/>
+        <location filename="model.cpp" line="81"/>
+        <source>Progress:</source>
+        <translation>进度：</translation>
+    </message>
+    <message>
+        <location filename="model.cpp" line="123"/>
         <source>Checking Files...</source>
         <translation>检查文件中...</translation>
     </message>

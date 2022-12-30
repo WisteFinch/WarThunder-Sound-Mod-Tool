@@ -9,6 +9,7 @@
 #include <QList>
 #include <QStackedLayout>
 #include <QPushButton>
+#include <QDebug>
 #include "item.h"
 #include "build.h"
 
