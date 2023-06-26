@@ -52,5 +52,6 @@ private:
     QPushButton *m_clear;
     QPushButton *m_github;
     QPushButton *m_usage;
+    QLabel *m_version;
 };
 #endif // MAINWIDGET_H

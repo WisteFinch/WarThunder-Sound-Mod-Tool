@@ -17,6 +17,7 @@ Build::Build(QWidget *parent, QMap<QString, QString> *filesList, QMap<QString, Q
     this->setWindowTitle(tr("Build:") + " " + title);
     this->setWindowModality(Qt::ApplicationModal);
 
+    // 初始化布局
     this->m_layout_main = new QVBoxLayout;
     this->setLayout(this->m_layout_main);
     this->m_scroll = new QScrollArea;
@@ -33,13 +34,27 @@ Build::Build(QWidget *parent, QMap<QString, QString> *filesList, QMap<QString, Q
     this->m_layout_conf->addWidget(new Line());
     this->m_layout_type = new QVBoxLayout;
     this->m_layout_checkbox->addLayout(this->m_layout_type);
+    this->m_layout_type_title = new QHBoxLayout;
+    this->m_layout_type->addLayout(this->m_layout_type_title);
     this->m_label_type = new QLabel(tr("Type"));
-    this->m_layout_type->addWidget(this->m_label_type);
+    this->m_layout_type_title->addWidget(this->m_label_type);
+    this->m_layout_type_title->addStretch();
+    this->m_label_type_select_all = new QLabel(tr("All"));
+    this->m_layout_type_title->addWidget(this->m_label_type_select_all);
+    this->m_c_type_select_all = new QCheckBox();
+    this->m_layout_type_title->addWidget(this->m_c_type_select_all);
     this->m_layout_type->addWidget(new Line());
     this->m_layout_lang = new QVBoxLayout;
     this->m_layout_checkbox->addLayout(this->m_layout_lang);
+    this->m_layout_lang_title = new QHBoxLayout;
+    this->m_layout_lang->addLayout(this->m_layout_lang_title);
     this->m_label_lang = new QLabel(tr("Language"));
-    this->m_layout_lang->addWidget(this->m_label_lang);
+    this->m_layout_lang_title->addWidget(this->m_label_lang);
+    this->m_layout_lang_title->addStretch();
+    this->m_label_lang_select_all = new QLabel(tr("All"));
+    this->m_layout_lang_title->addWidget(this->m_label_lang_select_all);
+    this->m_c_lang_select_all = new QCheckBox;
+    this->m_layout_lang_title->addWidget(this->m_c_lang_select_all);
     this->m_layout_lang->addWidget(new Line());
     this->m_layout_button = new QHBoxLayout;
     this->m_layout_main->addLayout(this->m_layout_button);
@@ -55,42 +70,51 @@ Build::Build(QWidget *parent, QMap<QString, QString> *filesList, QMap<QString, Q
     this->m_layout_conf->addWidget(this->m_c_fill_empty);
     this->m_c_replace_type = new QComboBox;
     this->m_c_replace_type->addItem(tr("Replace all"));
-    this->m_c_replace_type->addItem(tr("Completes files"));
+    this->m_c_replace_type->addItem(tr("Complete files"));
     //this->m_c_replace_type->addItem(tr("Check MD5"));
     this->m_c_replace_type->setCurrentIndex(0);
     this->m_layout_conf->addWidget(this->m_c_replace_type);
     this->m_layout_conf->addStretch();
 
+    // 连接信号
     connect(this->m_c_fill_empty, &QCheckBox::clicked, this, [=]{this->fill_empty = this->m_c_fill_empty->isChecked();});
     connect(this->m_c_replace_type, &QComboBox::currentTextChanged, this, [=]{this->replace_type = this->m_c_replace_type->currentIndex();});
     connect(this->m_start, &QPushButton::clicked, this, &Build::start);
+    connect(this->m_c_type_select_all, &QCheckBox::clicked, this, &Build::selectAllTypes);
+    connect(this->m_c_lang_select_all, &QCheckBox::clicked, this, &Build::selectAllLangs);
 
+    // 加入种类
     for(int i = 0; i < this->m_types->size(); i++){
         QCheckBox *c = new QCheckBox;
-        c->setChecked(true);
         c->setText(this->m_types->at(i));
-        this->m_enable_type.insert(this->m_types->at(i), true);
         this->m_layout_type->addWidget(c);
+        this->m_enable_type.insert(this->m_types->at(i), c->isChecked());
         connect(c, &QCheckBox::clicked, this, [=]{this->m_enable_type.insert(this->m_types->at(i), c->isChecked());});
     }
     this->m_layout_type->addStretch();
+    // 加入语言
     QMap<QString, QString>::Iterator iter = this->m_langs->begin();
     while(iter!=this->m_langs->end()){
         QCheckBox *c = new QCheckBox;
-        c->setChecked(true);
         c->setText(iter.value());
-        this->m_enable_lang.insert(iter.key(), true);
         this->m_layout_lang->addWidget(c);
+        this->m_enable_lang.insert(iter.key(), c->isChecked());
         connect(c, &QCheckBox::clicked, this, [=]{this->m_enable_lang.insert(iter.key(), c->isChecked());});
         iter++;
     }
     this->m_layout_lang->addStretch();
 
+    // 初始化进度条
     this->m_bar->setMinimum(0);
     this->m_bar->setMaximum(0);
     this->m_bar->setValue(0);
     this->m_bar->reset();
-    this->m_bar->setFormat(tr("Waiting"));
+
+    // 默认全部勾选
+    this->m_c_type_select_all->setChecked(true);
+    this->m_c_lang_select_all->setChecked(true);
+    selectAllTypes(true);
+    selectAllLangs(true);
 }
 
 Build::~Build()
@@ -184,4 +208,30 @@ QString Build::createMultipleFolders(QString path)
         parentPath.mkpath(dirName);
     }
     return parentDir + "/" + dirName;
+}
+
+void Build::selectAllTypes(bool checked)
+{
+    int count = this->m_layout_type->count();
+    for(int i = 0; i < count; i++)
+    {
+        QCheckBox *item = qobject_cast<QCheckBox*>(this->m_layout_type->itemAt(i)->widget());
+        if(item != nullptr)
+            item->setChecked(checked);
+    }
+    for(auto iter = this->m_enable_type.begin(); iter != this->m_enable_type.end(); ++iter)
+        iter.value() = checked;
+}
+
+void Build::selectAllLangs(bool checked)
+{
+    int count = this->m_layout_lang->count();
+    for(int i = 0; i < count; i++)
+    {
+        QCheckBox *item = qobject_cast<QCheckBox*>(this->m_layout_lang->itemAt(i)->widget());
+        if(item != nullptr)
+            item->setChecked(checked);
+    }
+    for(auto iter = this->m_enable_lang.begin(); iter != this->m_enable_lang.end(); ++iter)
+        iter.value() = checked;
 }

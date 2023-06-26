@@ -129,7 +129,7 @@ void Model::checkFiles(int type, QStringList l)
             if(this->m_list->at(i)->is_reday){
                 this->m_list_widget->item(i)->setBackground(QColor("white"));
             }else{
-                this->m_list_widget->item(i)->setBackground(QColor("red"));
+                this->m_list_widget->item(i)->setBackground(QColor(255,0,0,100));
             }
         }
     }
@@ -138,7 +138,7 @@ void Model::checkFiles(int type, QStringList l)
         for(int i = 0; i < this->m_list->size(); i++)
         {
             this->m_list->at(i)->is_reday = false;
-            this->m_list_widget->item(i)->setBackground(QColor("red"));
+            this->m_list_widget->item(i)->setBackground(QColor(255,0,0,100));
         }
     }
     else{
@@ -163,7 +163,7 @@ void Model::checkFiles(int type, QStringList l)
             {
                 this->m_list_widget->setCurrentRow(workingList.at(i));
                 this->m_list->at((workingList.at(i)))->is_reday = false;
-                this->m_list_widget->item(workingList.at(i))->setBackground(QColor("red"));
+                this->m_list_widget->item(workingList.at(i))->setBackground(QColor(255,0,0,100));
             }
         }
     }

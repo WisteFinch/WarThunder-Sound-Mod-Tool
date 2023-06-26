@@ -7,6 +7,8 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+    QCoreApplication::setApplicationVersion("0.0.4");
+    QCoreApplication::setApplicationName("WTSMT");
 
     QTranslator translator;
     const QStringList uiLanguages = QLocale::system().uiLanguages();

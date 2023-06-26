@@ -38,6 +38,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
     qt_add_executable(WTSMT
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
+        "app_win32.rc"
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET WTSMT APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
@@ -55,6 +56,7 @@ else()
     else()
         add_executable(WTSMT
             ${PROJECT_SOURCES}
+            "app_win32.rc"
         )
     endif()
 

@@ -8,7 +8,7 @@ MainWidget::MainWidget(QWidget *parent)
     ui->setupUi(this);
 
     // 创建界面
-    this->setWindowTitle(tr("WarThunder Sound Mod Builder"));
+    this->setWindowTitle(tr("WarThunder Sound Mod Tool"));
     this->m_layout_main = new QHBoxLayout;
     this->m_layout_files = new QVBoxLayout;
     this->m_layout_models = new QVBoxLayout;
@@ -88,9 +88,14 @@ MainWidget::MainWidget(QWidget *parent)
     this->m_usage->setText(tr("Usage"));
     this->m_layout_models->addWidget(this->m_usage);
 
+    // 版本信息
+    this->m_version = new QLabel(tr("Version: ") + QCoreApplication::applicationVersion());
+    this->m_layout_models->addWidget(this->m_version);
+    this->m_version->setAlignment(Qt::AlignCenter);
+
     // 绑定信号
     connect(this->m_github, &QPushButton::clicked, this, [=]{QDesktopServices::openUrl(QUrl("https://github.com/WisteFinch/WarThunder-Sound-Mod-Tool", QUrl::TolerantMode));});
-    connect(this->m_usage, &QPushButton::clicked, this, [=]{QDesktopServices::openUrl(QUrl("https://www.bilibili.com/read/cv17721264", QUrl::TolerantMode));});
+    connect(this->m_usage, &QPushButton::clicked, this, [=]{QDesktopServices::openUrl(QUrl("https://github.com/WisteFinch/WarThunder-Sound-Mod-Tool/blob/main/README.md", QUrl::TolerantMode));});
     connect(this->m_import, &QPushButton::clicked, this, &MainWidget::import);
     connect(this->m_delete, &QPushButton::clicked, this, [=]{if(this->m_files->currentItem()!= nullptr){QStringList l;l.append(this->m_files->currentItem()->text());this->m_files_list->remove(this->m_files->currentItem()->text()); delete this->m_files->currentItem();checkFiles(2, l);}});
     connect(this->m_clear, &QPushButton::clicked, this, [=]{this->m_files->clear();this->m_files_list->clear();checkFiles(-1);});

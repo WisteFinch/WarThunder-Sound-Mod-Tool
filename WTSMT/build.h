@@ -49,7 +49,9 @@ public:
     QWidget *m_widget;
     QHBoxLayout *m_layout_checkbox;
     QVBoxLayout *m_layout_type;
+    QHBoxLayout *m_layout_type_title;
     QVBoxLayout *m_layout_lang;
+    QHBoxLayout *m_layout_lang_title;
     QVBoxLayout *m_layout_conf;
     QHBoxLayout *m_layout_button;
     QPushButton *m_start;
@@ -57,11 +59,17 @@ public:
     QLabel *m_label_conf;
     QLabel *m_label_type;
     QLabel *m_label_lang;
+    QLabel *m_label_type_select_all;
+    QLabel *m_label_lang_select_all;
+    QCheckBox *m_c_type_select_all;
+    QCheckBox *m_c_lang_select_all;
 
     QString createMultipleFolders(QString path);
 
 public slots:
     void start();
+    void selectAllTypes(bool checked = true);
+    void selectAllLangs(bool checked = true);
 
 private:
     Ui::Build *ui;

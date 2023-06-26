@@ -4,7 +4,7 @@
 <context>
     <name>Build</name>
     <message>
-        <location filename="build.ui" line="16"/>
+        <location filename="build.ui" line="14"/>
         <source>Form</source>
         <translation>窗体</translation>
     </message>
@@ -14,72 +14,81 @@
         <translation>构建：</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="31"/>
+        <location filename="build.cpp" line="32"/>
         <source>Configuration</source>
         <translation>配置</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="36"/>
+        <location filename="build.cpp" line="39"/>
         <source>Type</source>
         <translation>类型</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="41"/>
+        <location filename="build.cpp" line="42"/>
+        <location filename="build.cpp" line="54"/>
+        <source>All</source>
+        <translation>全选</translation>
+    </message>
+    <message>
+        <location filename="build.cpp" line="51"/>
         <source>Language</source>
         <translation>语言</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="49"/>
+        <location filename="build.cpp" line="64"/>
         <source>Start</source>
         <translation>开始</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="53"/>
+        <location filename="build.cpp" line="68"/>
         <source>Fill in missing files</source>
         <translation>填充缺失文件</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="57"/>
+        <location filename="build.cpp" line="72"/>
         <source>Replace all</source>
         <translation>全部替换</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="58"/>
-        <source>Completes files</source>
+        <location filename="build.cpp" line="73"/>
+        <source>Complete files</source>
         <translation>补全文件</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="93"/>
-        <source>Waiting</source>
-        <translation>等待中</translation>
+        <source>Completes files</source>
+        <translation type="vanished">补全文件</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="111"/>
+        <source>Waiting</source>
+        <translation type="vanished">等待中</translation>
+    </message>
+    <message>
+        <location filename="build.cpp" line="135"/>
         <source>System File Missing</source>
         <translation>缺失系统文件</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="111"/>
+        <location filename="build.cpp" line="135"/>
         <source>Missing system file &quot;mute.wav&quot;, please reinstall the application to solve the problem</source>
         <translation>缺失系统文件“mute.wav”，请重新安装程序以解决问题</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="121"/>
+        <location filename="build.cpp" line="145"/>
         <source>%p%</source>
         <translation>%p%</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="123"/>
+        <location filename="build.cpp" line="147"/>
         <source>Select export directory</source>
         <translation>选择导出目录</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="165"/>
+        <location filename="build.cpp" line="189"/>
         <source>Done</source>
         <translation>完成</translation>
     </message>
     <message>
-        <location filename="build.cpp" line="167"/>
+        <location filename="build.cpp" line="191"/>
         <source>Cancel</source>
         <translation>已取消</translation>
     </message>
@@ -137,8 +146,12 @@
         <translation>主窗体</translation>
     </message>
     <message>
-        <location filename="mainwidget.cpp" line="11"/>
         <source>WarThunder Sound Mod Builder</source>
+        <translation type="vanished">战争雷霆音频包工具</translation>
+    </message>
+    <message>
+        <location filename="mainwidget.cpp" line="11"/>
+        <source>WarThunder Sound Mod Tool</source>
         <translation>战争雷霆音频包工具</translation>
     </message>
     <message>
@@ -167,6 +180,11 @@
         <translation>使用方法</translation>
     </message>
     <message>
+        <location filename="mainwidget.cpp" line="92"/>
+        <source>Version: </source>
+        <translation>版本： </translation>
+    </message>
+    <message>
         <source>import</source>
         <translation type="vanished">导入</translation>
     </message>
@@ -188,7 +206,7 @@
         <translation type="vanished">检查更新</translation>
     </message>
     <message>
-        <location filename="mainwidget.cpp" line="107"/>
+        <location filename="mainwidget.cpp" line="112"/>
         <source>Select sound files</source>
         <translation>选择音频文件</translation>
     </message>
@@ -196,7 +214,7 @@
 <context>
     <name>Model</name>
     <message>
-        <location filename="model.ui" line="16"/>
+        <location filename="model.ui" line="14"/>
         <source>Form</source>
         <translation>窗体</translation>
     </message>
